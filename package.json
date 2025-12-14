@@ -13,5 +13,13 @@
   "type": "commonjs",
   "dependencies": {
     "express": "^5.2.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ynsvrs/Movie-Recommendation-Web-App.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ynsvrs/Movie-Recommendation-Web-App/issues"
+  },
+  "homepage": "https://github.com/ynsvrs/Movie-Recommendation-Web-App#readme"
 }
