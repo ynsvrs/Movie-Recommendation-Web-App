@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact – Movie Recommendation System</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<nav class="navigation">
+  <div class="nav-container">
+    <div class="nav-logo">🎬 MovieRec</div>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/contact">Recommendation Form</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header>
+  <h1>Recommendation Form</h1>
+  <p class="subtitle">Tell us your movie preferences</p>
+</header>
+
+<section>
+  <form method="POST" action="/contact" class="form">
+    <input type="text" name="name" placeholder="Your name" required>
+    <input type="email" name="email" placeholder="Your email" required>
+    <textarea name="message" placeholder="Your preferences or message" required></textarea>
+    <button type="submit">Send</button>
+  </form>
+</section>
+
+</body>
+</html>

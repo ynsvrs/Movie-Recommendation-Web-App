@@ -1,100 +1,180 @@
-Project name: Movie Recommendation System
-
-Team members: SE-2423, Baizakova Erkezhan, Yerzhan Saniya, Zhanatay Ismail
-
-Short Description: This project is a basic Node.js, Express.js application that
-allows users to input movie
-preferences such as genre,
-release year, or mood. The
-system will then provide
-movie or TV show
-recommendations.
-
-Topic Explanation: The topic of our project is a Movie Recommendation System, a web application designed to help users discover new films based on their preferences. The system will allow users to explore movies, view brief information about each title, and receive personalized recommendations generated from selected genres, moods, or release years. Our goal is to create a simple, user-friendly platform that makes it easier for users to find movies they will enjoy.
 
 
-##  Installation & Run Instructions
+#  Movie Recommendation System
 
-Follow the steps below to install and run the project on your machine:
+A simple **Node.js & Express.js** web application that demonstrates routing, form handling, and clean UI design.
+Built as part of **Assignment 1 – Part 2 (Routing & Forms in Express.js)**.
 
 ---
 
-### 1. Clone the repository
+##  Project Overview
 
+The **Movie Recommendation System** is a basic web application designed to help users discover movies based on their preferences such as **genre, mood, or release year**.
+
+This project focuses on:
+
+* Express.js routing (GET & POST)
+* Handling form data using `req.body`
+* Maintaining a clean folder structure
+* Creating a consistent and responsive UI
+
+---
+
+## 👥 Team Information
+
+**Group:** SE-2423
+
+**Team Members:**
+
+* Baizakova Erkezhan
+* Yerzhan Saniya
+* Zhanatay Ismail
+
+---
+
+##  Features
+
+### Implemented
+
+* Home page with project introduction
+* About page with team and project details
+* Contact / Recommendation form
+* POST request handling using Express
+* 404 page for unknown routes
+* Consistent navigation across all pages
+
+### Bonus (Optional)
+
+* Client-side form validation
+* Save submitted form data into a `.json` file
+
+---
+
+## 🧭 Application Routes
+
+| Route      | Method | Description                   |
+| ---------- | ------ | ----------------------------- |
+| `/`        | GET    | Home page                     |
+| `/about`   | GET    | About the project and team    |
+| `/contact` | GET    | Recommendation / contact form |
+| `/contact` | POST   | Handles form submission       |
+| `*`        | GET    | 404 – Page Not Found          |
+
+---
+
+## 📝 Contact Form
+
+The contact form includes:
+
+* **Name**
+* **Email**
+* **Message**
+
+Form data is sent using the **POST** method and processed on the server via `req.body`.
+
+---
+
+## 🛠️ Technologies Used
+
+* **Node.js**
+* **Express.js**
+* **HTML5**
+* **CSS3**
+
+---
+
+## 📂 Project Structure
+
+```bash
+project-folder/
+│
+├── public/
+│   └── style.css
+│
+├── views/
+│   ├── index.html
+│   ├── about.html
+│   └── contact.html
+│
+├── server.js
+├── package.json
+└── README.md
+```
+
+---
+
+## ⚙️ Installation & Run Instructions
+
+Follow these steps to run the project locally:
+
+### 1️⃣ Clone the repository
+
+```bash
 git clone <your-repository-url>
 cd <project-folder>
----
+```
 
-###  2. Install dependencies
+### 2️⃣ Install dependencies
 
-Install all required Node.js packages:
-
+```bash
 npm install
----
+```
 
-### ▶ 3. Start the server
+### 3️⃣ Start the server
 
-Run the application locally:
-
+```bash
 node server.js
----
+```
 
-###  4. Open in browser
+### 4️⃣ Open in browser
 
-Once the server starts, open the link:
+```
+http://localhost:3000
+```
 
-[http://localhost:3000](http://localhost:3000)
-
-You should now see the landing page of the Movie Recommendation System.
-
-
-Вот очень красиво оформленный, аккуратный и профессиональный раздел Future Roadmap, который будет идеально смотреться в README GitHub.
-Использует эмодзи, заголовки, отступы, чёткое форматирование — выглядит как работа уровня реальных открытых проектов.
+You should now see the **Movie Recommendation System** homepage 
 
 ---
 
-#  Future Roadmap
+## Learning Objectives
 
-The following roadmap outlines how the Movie Recommendation System will grow and evolve based on the planned features.
+This project helps to understand:
 
----
-
-##  Core Features
-
-These features form the foundation of the application:
-
-* Genre-based movie recommendations
-*  Mood-based movie suggestions
-*  Search movies by release year
-*  View brief information about each movie
-*  Receive personalized recommendations
+* How Express handles **GET and POST** requests
+* How HTML forms send data to the backend
+* How `req.body` works
+* How to organize a basic Express project
+* How frontend and backend interact
 
 ---
 
-##  UI & Visual Improvements
+## Testing
 
-Enhancing the overall look and feel:
-
-* Improved visual UI design
-* Responsive layout for different devices
-* Clearer and cleaner navigation structure
+* GET routes can be tested directly in the browser
+* POST requests can be tested via the form or using tools like **Postman**
+* `console.log(req.body)` is used for debugging form submissions
 
 ---
 
-##  User Interaction & Personalization
+## Future Roadmap
 
-Adding more user-focused functionality:
+### Core Features
 
-* Save movies the user likes
-* Basic user profile (preferences & saved movies)
-* “Favorites” section to view saved films.
+* Genre-based recommendations
+* Mood-based suggestions
+* Search by release year
+* Personalized recommendations
+
+### UI & UX
+
+* Improved visual design
+* Better responsiveness
+* Cleaner navigation
+
+### Integrations
+
+* Movie APIs (TMDB / OMDb)
+* Live posters, ratings, descriptions
+* Dynamic recommendation engine
 
 ---
-
-##  Future Integrations
-
-Planned expansions for dynamic data:
-
-*  API integration (TMDB or OMDb)
-*  Live movie posters, ratings, descriptions
-*  Dynamic recommendation engine using real movie data. 
