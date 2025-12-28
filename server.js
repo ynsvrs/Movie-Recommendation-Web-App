@@ -14,7 +14,7 @@ app.use((req, res, next) => {
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ROUTES Saniya start
+// ROUTES start
 //  Home page
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'index.html'));
@@ -78,7 +78,7 @@ app.get('/api/info', (req, res) => {
     };
     res.json(info);
 });
-// ROUTES Saniya end
+// ROUTES end
 
 
 app.use((req, res) => {
