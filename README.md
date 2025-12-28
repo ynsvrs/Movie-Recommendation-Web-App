@@ -1,22 +1,23 @@
-
-
 #  Movie Recommendation System
 
-A simple **Node.js & Express.js** web application that demonstrates routing, form handling, and clean UI design.
-Built as part of **Assignment 1 – Part 2 (Routing & Forms in Express.js)**.
+A simple **Node.js & Express.js** web application that demonstrates **server-side request handling**, routing, middleware usage, and form processing.
+
+Built as part of **Assignment 2 – Part 1: Server-side Request Handling in Express.js**.
 
 ---
 
 ##  Project Overview
 
-The **Movie Recommendation System** is a basic web application designed to help users discover movies based on their preferences such as **genre, mood, or release year**.
+The **Movie Recommendation System** is a basic Express.js application that simulates a future movie recommendation platform.
 
-This project focuses on:
+The goal of this project is **not to build a full recommendation engine**, but to demonstrate how a server:
 
-* Express.js routing (GET & POST)
-* Handling form data using `req.body`
-* Maintaining a clean folder structure
-* Creating a consistent and responsive UI
+* Handles **GET and POST** requests
+* Works with **query parameters** and **route parameters**
+* Processes form data using `req.body`
+* Returns **HTML and JSON responses**
+* Applies **server-side validation**
+* Maintains **consistent navigation** across pages
 
 ---
 
@@ -24,78 +25,85 @@ This project focuses on:
 
 **Group:** SE-2423
 
-**Team Members:**
+**Team Members & Contributions:**
 
-* Baizakova Erkezhan
-* Yerzhan Saniya
-* Zhanatay Ismail
+* **Baizakova Erkezhan** 
+* **Yerzhan Saniya** 
+* **Zhanatay Ismail** 
 
 ---
 
 ##  Features
 
-### Implemented
+### Core Features (Required)
 
-* Home page with project introduction
-* About page with team and project details
+* Home page with navigation
+* About page with team information
 * Contact / Recommendation form
 * POST request handling using Express
+* Saving submitted form data into a `.json` file
+* Query parameters (`/search?q=value`)
+* Route parameters (`/item/:id`)
+* JSON API endpoint (`/api/info`)
 * 404 page for unknown routes
 * Consistent navigation across all pages
-
-### Bonus (Optional)
-
-* Client-side form validation
-* Save submitted form data into a `.json` file
+* Basic server-side validation with HTTP **400** status
 
 ---
 
-## 🧭 Application Routes
+##  Application Routes
 
-| Route      | Method | Description                   |
-| ---------- | ------ | ----------------------------- |
-| `/`        | GET    | Home page                     |
-| `/about`   | GET    | About the project and team    |
-| `/contact` | GET    | Recommendation / contact form |
-| `/contact` | POST   | Handles form submission       |
-| `*`        | GET    | 404 – Page Not Found          |
+| Route             | Method | Description                            |
+| ----------------- | ------ | -------------------------------------- |
+| `/`               | GET    | Home page                              |
+| `/about`          | GET    | About page (team & project info)       |
+| `/contact`        | GET    | Recommendation / contact form          |
+| `/contact`        | POST   | Handles form submission and saves data |
+| `/search?q=value` | GET    | Uses query parameter (`q`)             |
+| `/item/:id`       | GET    | Uses route parameter (`id`)            |
+| `/api/info`       | GET    | Returns project info in JSON format    |
+| `*`               | GET    | 404 – Page Not Found                   |
 
 ---
 
-## 📝 Contact Form
+## Contact Form
 
 The contact form includes:
 
 * **Name**
 * **Email**
-* **Message**
+* **Message / Preferences**
 
-Form data is sent using the **POST** method and processed on the server via `req.body`.
+Form data is submitted using the **POST** method and processed on the server via `req.body`.
+All submissions are saved into a local **JSON file** using the `fs` module.
 
 ---
 
-## 🛠️ Technologies Used
+##  Technologies Used
 
 * **Node.js**
 * **Express.js**
 * **HTML5**
 * **CSS3**
+* **File System (fs module)**
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```bash
 project-folder/
 │
 ├── public/
-│   └── style.css
+│   ├── style.css
+│   └── images/
 │
 ├── views/
 │   ├── index.html
 │   ├── about.html
 │   └── contact.html
 │
+├── submissions.json
 ├── server.js
 ├── package.json
 └── README.md
@@ -103,78 +111,72 @@ project-folder/
 
 ---
 
-## ⚙️ Installation & Run Instructions
+##  Installation & Run Instructions
 
-Follow these steps to run the project locally:
-
-### 1️⃣ Clone the repository
+### Clone the repository
 
 ```bash
 git clone <your-repository-url>
-cd <project-folder>
+cd project-folder
 ```
 
-### 2️⃣ Install dependencies
+###  Install dependencies
 
 ```bash
 npm install
 ```
 
-### 3️⃣ Start the server
+### Start the server
 
 ```bash
 node server.js
 ```
 
-### 4️⃣ Open in browser
+### Open in browser
 
 ```
 http://localhost:3000
 ```
 
-You should now see the **Movie Recommendation System** homepage 
-
 ---
 
-## Learning Objectives
+##  Learning Objectives
 
 This project helps to understand:
 
-* How Express handles **GET and POST** requests
-* How HTML forms send data to the backend
-* How `req.body` works
-* How to organize a basic Express project
-* How frontend and backend interact
+* How Express handles **server-side routing**
+* Difference between **GET and POST** requests
+* How query and route parameters work
+* How to implement **basic validation**
+* How to return **HTML and JSON responses**
+* How frontend and backend interact in Express
 
 ---
 
 ## Testing
 
 * GET routes can be tested directly in the browser
-* POST requests can be tested via the form or using tools like **Postman**
+* POST requests can be tested via the contact form
+* Query parameters example:
+
+  ```
+  /search?q=action
+  ```
+* Route parameters example:
+
+  ```
+  /item/123
+  ```
 * `console.log(req.body)` is used for debugging form submissions
 
 ---
 
-## Future Roadmap
+## Future Improvements
 
-### Core Features
-
-* Genre-based recommendations
-* Mood-based suggestions
-* Search by release year
-* Personalized recommendations
-
-### UI & UX
-
-* Improved visual design
-* Better responsiveness
-* Cleaner navigation
-
-### Integrations
-
-* Movie APIs (TMDB / OMDb)
-* Live posters, ratings, descriptions
-* Dynamic recommendation engine
+* Real movie recommendation logic
+* Integration with movie APIs (TMDB / OMDb)
+* Dynamic rendering using templates
+* User accounts and personalization
+* Improved UI and responsiveness
 
 ---
