@@ -1,27 +1,28 @@
 #  Movie Recommendation System
 
-A simple **Node.js & Express.js** web application that demonstrates **server-side request handling**, routing, middleware usage, and form processing.
+A simple **Node.js & Express.js** web application that demonstrates **database integration**, **RESTful CRUD API**, and **server-side request handling**.
 
-Built as part of **Assignment 2 – Part 1: Server-side Request Handling in Express.js**.
+Built as part of **Assignment 2 – Part 2: Database Integration and CRUD API**.
 
 ---
 
 ##  Project Overview
 
-The **Movie Recommendation System** is a basic Express.js application that simulates a future movie recommendation platform.
+The **Movie Recommendation System** is an Express.js application that demonstrates how a server:
 
-The goal of this project is **not to build a full recommendation engine**, but to demonstrate how a server:
+* Connects to a **SQLite database**
+* Automatically creates database tables on startup
+* Implements a **REST-style CRUD API**
+* Handles **GET, POST, PUT, DELETE** requests
+* Returns **JSON responses with correct HTTP status codes**
+* Applies **server-side validation and error handling**
+* Maintains consistent navigation and pages from Part 1
 
-* Handles **GET and POST** requests
-* Works with **query parameters** and **route parameters**
-* Processes form data using `req.body`
-* Returns **HTML and JSON responses**
-* Applies **server-side validation**
-* Maintains **consistent navigation** across pages
+The project uses a **movies** entity as the main data model.
 
 ---
 
-## 👥 Team Information
+##  Team Information
 
 **Group:** SE-2423
 
@@ -33,49 +34,63 @@ The goal of this project is **not to build a full recommendation engine**, but t
 
 ---
 
-##  Features
+##  Database
 
-### Core Features (Required)
+**Database used:** SQLite
 
-* Home page with navigation
-* About page with team information
-* Contact / Recommendation form
-* POST request handling using Express
-* Saving submitted form data into a `.json` file
-* Query parameters (`/search?q=value`)
-* Route parameters (`/item/:id`)
-* JSON API endpoint (`/api/info`)
-* 404 page for unknown routes
-* Consistent navigation across all pages
-* Basic server-side validation with HTTP **400** status
+The database file is created automatically when the server starts.
 
----
+### Table: `movies`
 
-##  Application Routes
-
-| Route             | Method | Description                            |
-| ----------------- | ------ | -------------------------------------- |
-| `/`               | GET    | Home page                              |
-| `/about`          | GET    | About page (team & project info)       |
-| `/contact`        | GET    | Recommendation / contact form          |
-| `/contact`        | POST   | Handles form submission and saves data |
-| `/search?q=value` | GET    | Uses query parameter (`q`)             |
-| `/item/:id`       | GET    | Uses route parameter (`id`)            |
-| `/api/info`       | GET    | Returns project info in JSON format    |
-| `*`               | GET    | 404 – Page Not Found                   |
+| Field  | Type    | Description                  |
+| ------ | ------- | ---------------------------- |
+| id     | INTEGER | Primary Key (Auto Increment) |
+| title  | TEXT    | Movie title (required)       |
+| genre  | TEXT    | Movie genre (required)       |
+| rating | REAL    | Movie rating                 |
 
 ---
 
-## Contact Form
+##  API Routes (CRUD)
 
-The contact form includes:
+| Method | Route             | Description        |
+| ------ | ----------------- | ------------------ |
+| GET    | `/api/movies`     | Get all movies     |
+| GET    | `/api/movies/:id` | Get movie by ID    |
+| POST   | `/api/movies`     | Create a new movie |
+| PUT    | `/api/movies/:id` | Update a movie     |
+| DELETE | `/api/movies/:id` | Delete a movie     |
 
-* **Name**
-* **Email**
-* **Message / Preferences**
+### Validation Rules
 
-Form data is submitted using the **POST** method and processed on the server via `req.body`.
-All submissions are saved into a local **JSON file** using the `fs` module.
+* Invalid `id` → **400 Bad Request**
+* Missing required fields → **400 Bad Request**
+* Movie not found → **404 Not Found**
+* Successful POST → **201 Created**
+* Successful GET / PUT / DELETE → **200 OK**
+
+---
+
+## Application Pages (from Part 1)
+
+| Route             | Method | Description             |
+| ----------------- | ------ | ----------------------- |
+| `/`               | GET    | Home page               |
+| `/about`          | GET    | About page              |
+| `/contact`        | GET    | Contact form            |
+| `/contact`        | POST   | Handles form submission |
+| `/search?q=value` | GET    | Query parameter example |
+| `/item/:id`       | GET    | Route parameter example |
+| `*`               | GET    | 404 – Page Not Found    |
+
+---
+
+## API Test Links (Home Page)
+
+The Home page includes direct API test links for quick testing:
+
+* `/api/movies`
+* `/api/movies/1`
 
 ---
 
@@ -83,26 +98,29 @@ All submissions are saved into a local **JSON file** using the `fs` module.
 
 * **Node.js**
 * **Express.js**
+* **SQLite**
 * **HTML5**
 * **CSS3**
 * **File System (fs module)**
 
 ---
 
-## Project Structure
+##  Project Structure
 
 ```bash
 project-folder/
 │
 ├── public/
-│   ├── style.css
-│   └── images/
+│   └── style.css
 │
 ├── views/
 │   ├── index.html
 │   ├── about.html
 │   └── contact.html
 │
+├── db.js
+├── movieModel.js
+├── movies.db
 ├── submissions.json
 ├── server.js
 ├── package.json
@@ -120,7 +138,7 @@ git clone <your-repository-url>
 cd project-folder
 ```
 
-###  Install dependencies
+### Install dependencies
 
 ```bash
 npm install
@@ -140,43 +158,43 @@ http://localhost:3000
 
 ---
 
+##  Testing the API
+
+API endpoints can be tested using:
+
+* Browser (GET requests)
+* Postman / Thunder Client
+
+### Example POST request body:
+
+```json
+{
+  "title": "Inception",
+  "genre": "Sci-Fi",
+  "rating": 9
+}
+```
+
+---
+
 ##  Learning Objectives
 
-This project helps to understand:
+This project demonstrates:
 
-* How Express handles **server-side routing**
-* Difference between **GET and POST** requests
-* How query and route parameters work
-* How to implement **basic validation**
-* How to return **HTML and JSON responses**
-* How frontend and backend interact in Express
-
----
-
-## Testing
-
-* GET routes can be tested directly in the browser
-* POST requests can be tested via the contact form
-* Query parameters example:
-
-  ```
-  /search?q=action
-  ```
-* Route parameters example:
-
-  ```
-  /item/123
-  ```
-* `console.log(req.body)` is used for debugging form submissions
+* Database integration with Express
+* RESTful API design
+* CRUD operations
+* Server-side validation
+* Proper HTTP status codes
+* Separation of concerns (routes, models, database)
+* Transition from static routes (Part 1) to real data (Part 2)
 
 ---
 
-## Future Improvements
+##  Future Improvements
 
-* Real movie recommendation logic
-* Integration with movie APIs (TMDB / OMDb)
-* Dynamic rendering using templates
-* User accounts and personalization
+* Real recommendation logic
+* External movie APIs (TMDB, OMDb)
+* Authentication & user accounts
+* Template engines (EJS)
 * Improved UI and responsiveness
-
----
