@@ -182,3 +182,67 @@ button {
     font-size: 2.1rem;
   }
 }
+.api-links {
+  margin: 45px auto 20px;
+  padding: 25px 30px;
+  background: linear-gradient(180deg, #07182d, #061325);
+  border: 1px solid #1c3557;
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(77, 184, 255, 0.15);
+  max-width: 600px;
+  text-align: center;
+}
+
+.api-links h2 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+  color: #4db8ff;
+}
+
+.api-links p {
+  font-size: 0.95rem;
+  margin-bottom: 18px;
+  opacity: 0.85;
+}
+
+.api-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.api-links li {
+  margin: 12px 0;
+}
+
+.api-links a {
+  display: block;
+  padding: 12px 18px;
+  border-radius: 12px;
+  background: rgba(77, 184, 255, 0.08);
+  border: 1px solid rgba(77, 184, 255, 0.25);
+  color: #e6f2ff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.api-links a:hover {
+  background: rgba(77, 184, 255, 0.18);
+  box-shadow: 0 0 18px rgba(77, 184, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+
+.api-links::before {
+  content: "DEV";
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background: #4db8ff;
+  color: #00111f;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 8px;
+  letter-spacing: 1px;
+  margin-top: -35px;
+}
