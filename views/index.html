@@ -6,7 +6,23 @@
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+<!-- GOOGLE FONT -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
 
+
+<!-- CSS -->
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="header">
+<h1>🎬 Movie Recommendation App</h1>
+<p>Frontend for Assignment 3 – Backend API with MongoDB</p>
+</header>
+
+
+<main class="container">
 <nav class="navigation">
   <div class="nav-container">
     <div class="nav-logo">🎬 MovieRec</div>
@@ -28,7 +44,6 @@
     <p>Quick access to test the Movies REST API:</p>
     <ul>
       <li><a href="/api/movies">GET /api/movies — All movies</a></li>
-      <li><a href="/api/movies/1">GET /api/movies/1 — Movie with ID 1</a></li>
     </ul>
   </section>
 
@@ -83,5 +98,57 @@
     <li>Simple and clean UI</li>
   </ul>
 </section>
+
+<!-- HOME / API LINKS -->
+<section class="card">
+<h2>API Test Links</h2>
+<div class="links">
+<a href="/api/movies" target="_blank">GET /api/movies</a>
+<a href="/api/movies?genre=Drama" target="_blank">Filter by genre</a>
+<a href="/api/movies?sort=rating" target="_blank">Sort by rating</a>
+<a href="/api/movies?projection=title,year" target="_blank">Projection</a>
+</div>
+</section>
+
+
+<!-- CREATE MOVIE -->
+<section class="card">
+<h2>Add Movie</h2>
+<div class="form">
+<input id="title" placeholder="Title" />
+<input id="genre" placeholder="Genre" />
+<input id="year" type="number" placeholder="Year" />
+<input id="rating" type="number" step="0.1" placeholder="Rating" />
+<button onclick="createMovie()">Create</button>
+</div>
+<p id="status" class="status"></p>
+</section>
+
+
+<!-- MOVIES LIST -->
+<section class="card">
+<h2>Movies</h2>
+
+
+<div class="filters">
+<input id="filterGenre" placeholder="Filter by genre" />
+<select id="sortBy">
+<option value="">No sort</option>
+<option value="rating">Rating</option>
+<option value="year">Year</option>
+</select>
+<input id="projection" placeholder="Projection (title,year)" />
+<button class="secondary" onclick="loadMovies()">Load</button>
+</div>
+
+
+<table>
+<thead>
+<tr>
+<th>Title</th>
+<th>Genre</th>
+<th>Year</th>
+<th>Rating</th>
+
 </body>
 </html>

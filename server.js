@@ -1,6 +1,7 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
+const connectDB = require("./db");
 
 const moviesRoutes = require("./routes/movies");
 const usersRoutes = require("./routes/users");
@@ -62,6 +63,9 @@ app.use("/api", (req, res) => res.status(404).json({ error: "API route not found
 app.use((req, res) => res.status(404).send('<h2>404 - Page Not Found</h2><a href="/">Go Home</a>'));
 
 
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-});
+async function startServer() {
+  await connectDB(); 
+  app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
+}
+
+startServer();

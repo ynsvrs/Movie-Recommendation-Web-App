@@ -1,54 +1,83 @@
-const db = require('./db');
+const connectDB = require("./db");
+const { ObjectId } = require("mongodb");
 
-// Get all movies
-function getAllMovies(callback) {
-  db.all("SELECT * FROM movies ORDER BY id ASC", callback);
+////////////////////
+// MOVIES CRUD
+////////////////////
+async function getAllMovies() {
+  const db = await connectDB();
+  return db.collection("movies").find({}).toArray();
 }
 
-// Get a movie by ID
-function getMovieById(id, callback) {
-  db.get("SELECT * FROM movies WHERE id = ?", [id], callback);
+async function getMovieById(id) {
+  const db = await connectDB();
+  return db.collection("movies").findOne({ _id: new ObjectId(id) });
 }
 
-// Add a new movie
-function addMovie(data, callback) {
-  const { title, genre, rating } = data;
-  db.run(
-    "INSERT INTO movies (title, genre, rating) VALUES (?, ?, ?)",
-    [title, genre, rating],
-    function(err) {
-      callback(err, this.lastID);
-    }
-  );
+async function addMovie(data) {
+  const db = await connectDB();
+  const result = await db.collection("movies").insertOne(data);
+  return result.insertedId;
 }
 
-// Update a movie
-function updateMovie(id, data, callback) {
-  const { title, genre, rating } = data;
-  db.run(
-    "UPDATE movies SET title = ?, genre = ?, rating = ? WHERE id = ?",
-    [title, genre, rating, id],
-    function(err) {
-      callback(err, this.changes);
-    }
-  );
+async function updateMovie(id, data) {
+  const db = await connectDB();
+  const result = await db
+    .collection("movies")
+    .updateOne({ _id: new ObjectId(id) }, { $set: data });
+  return result.modifiedCount;
 }
 
-// Delete a movie
-function deleteMovie(id, callback) {
-  db.run(
-    "DELETE FROM movies WHERE id = ?",
-    [id],
-    function(err) {
-      callback(err, this.changes);
-    }
-  );
+async function deleteMovie(id) {
+  const db = await connectDB();
+  const result = await db.collection("movies").deleteOne({ _id: new ObjectId(id) });
+  return result.deletedCount;
+}
+
+////////////////////
+// USERS CRUD
+////////////////////
+async function getAllUsers() {
+  const db = await connectDB();
+  return db.collection("users").find({}).toArray();
+}
+
+async function getUserById(id) {
+  const db = await connectDB();
+  return db.collection("users").findOne({ _id: new ObjectId(id) });
+}
+
+async function addUser(data) {
+  const db = await connectDB();
+  const result = await db.collection("users").insertOne(data);
+  return result.insertedId;
+}
+
+async function updateUser(id, data) {
+  const db = await connectDB();
+  const result = await db
+    .collection("users")
+    .updateOne({ _id: new ObjectId(id) }, { $set: data });
+  return result.modifiedCount;
+}
+
+async function deleteUser(id) {
+  const db = await connectDB();
+  const result = await db.collection("users").deleteOne({ _id: new ObjectId(id) });
+  return result.deletedCount;
 }
 
 module.exports = {
+  // Movies
   getAllMovies,
   getMovieById,
   addMovie,
   updateMovie,
-  deleteMovie
+  deleteMovie,
+  // Users
+  getAllUsers,
+  getUserById,
+  addUser,
+  updateUser,
+  deleteUser,
 };

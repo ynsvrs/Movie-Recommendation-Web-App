@@ -1,20 +1,23 @@
-const sqlite3 = require('sqlite3').verbose();
+const { MongoClient } = require("mongodb");
 
-const db = new sqlite3.Database('./movies.db', (err) => {
-  if (err) {
-    console.error('Database connection failed:', err);
-  } else {
-    console.log('Connected to SQLite database!');
+const url = "mongodb://127.0.0.1:27017"; // Локальный MongoDB
+const dbName = "assignment3";
+
+let db;
+
+async function connectDB() {
+  if (db) return db;
+
+  try {
+    const client = new MongoClient(url);
+    await client.connect();           // ⚡ здесь сервер зависает, если URL неверный
+    db = client.db(dbName);
+    console.log("Connected to MongoDB");
+    return db;
+  } catch (err) {
+    console.error("MongoDB connection failed:", err);
+    process.exit(1);                  // завершить сервер, если нет соединения
   }
-});
+}
 
-db.run(`
-  CREATE TABLE IF NOT EXISTS movies (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    title TEXT NOT NULL,
-    genre TEXT NOT NULL,
-    rating REAL
-  )
-`);
-
-module.exports = db;
+module.exports = connectDB;
