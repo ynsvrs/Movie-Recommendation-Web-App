@@ -9,7 +9,7 @@ async function addMovie() {
   const rating = document.getElementById('rating').value;
   
   if (!title || !genre) {
-    document.getElementById('status').textContent = '❌ Title and Genre are required';
+    document.getElementById('status').textContent = 'Title and Genre are required';
     document.getElementById('status').style.color = '#dc3545';
     return;
   }
@@ -29,7 +29,7 @@ async function addMovie() {
     const data = await response.json();
     
     if (response.ok) {
-      document.getElementById('status').textContent = '✅ Movie added successfully!';
+      document.getElementById('status').textContent = 'Movie added successfully!';
       document.getElementById('status').style.color = '#28a745';
       document.getElementById('title').value = '';
       document.getElementById('genre').value = '';
@@ -42,11 +42,11 @@ async function addMovie() {
         document.getElementById('status').textContent = '';
       }, 1500);
     } else {
-      document.getElementById('status').textContent = '❌ Error: ' + data.error;
+      document.getElementById('status').textContent = 'Error: ' + data.error;
       document.getElementById('status').style.color = '#dc3545';
     }
   } catch (error) {
-    document.getElementById('status').textContent = '❌ Error: ' + error.message;
+    document.getElementById('status').textContent = 'Error: ' + error.message;
     document.getElementById('status').style.color = '#dc3545';
   }
 }
