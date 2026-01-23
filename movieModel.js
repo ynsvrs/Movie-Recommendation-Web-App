@@ -1,9 +1,7 @@
 const connectDB = require("./db");
 const { ObjectId } = require("mongodb");
 
-////////////////////
-// MOVIES CRUD
-////////////////////
+
 async function getAllMovies() {
   const db = await connectDB();
   return db.collection("movies").find({}).toArray();
@@ -34,9 +32,7 @@ async function deleteMovie(id) {
   return result.deletedCount;
 }
 
-////////////////////
-// USERS CRUD
-////////////////////
+
 async function getAllUsers() {
   const db = await connectDB();
   return db.collection("users").find({}).toArray();
