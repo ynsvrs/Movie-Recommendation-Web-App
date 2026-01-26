@@ -1,8 +1,7 @@
+require('dotenv').config();  
 const { MongoClient } = require("mongodb");
 
-const url = "mongodb+srv://insomny:Icanflyeveryday@cluster0.16lehun.mongodb.net/?appName=Cluster0"; 
-const dbName = "assignment3";
-
+const url = process.env.MONGO_URI;  
 let db;
 
 async function connectDB() {
@@ -11,7 +10,7 @@ async function connectDB() {
   try {
     const client = new MongoClient(url);
     await client.connect();          
-    db = client.db(dbName);
+    db = client.db(); 
     console.log("Connected to MongoDB");
     return db;
   } catch (err) {
