@@ -1,7 +1,6 @@
 const connectDB = require("./db");
 const { ObjectId } = require("mongodb");
 
-
 async function getAllMovies() {
   const db = await connectDB();
   return db.collection("movies").find({}).toArray();

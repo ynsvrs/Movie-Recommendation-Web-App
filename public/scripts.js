@@ -46,7 +46,7 @@ async function addMovie() {
       document.getElementById('status').style.color = '#dc3545';
     }
   } catch (error) {
-    document.getElementById('status').textContent = 'Error: ' + error.message;
+    document.getElementById('status').textContent = '❌Error: ' + error.message;
     document.getElementById('status').style.color = '#dc3545';
   }
 }

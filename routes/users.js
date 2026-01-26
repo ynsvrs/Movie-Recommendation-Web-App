@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const userModel = require("../movieModel"); 
+const userModel = require("../movieModel"); // Здесь лежат функции USERS CRUD
 
 // GET all users
 router.get("/", async (req, res) => {
