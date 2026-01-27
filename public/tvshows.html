@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TV Shows</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navigation">
+    <div class="nav-container">
+      <div class="nav-logo">🎬 MovieRec</div>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/movies.html">Movies</a></li>
+        <li><a href="/tvshows.html">TV Shows</a></li>
+        <li><a href="/channels.html">Channels</a></li>
+        <li><a href="/favorites.html">Favorites</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="header">
+    <h1>📺 TV Shows</h1>
+    <input id="search" type="text" placeholder="Search TV Shows..." />
+  </header>
+
+  <h2>Latest TV Shows</h2>
+  <div id="latest-tvshows" class="container"></div>
+
+  <h2>Popular TV Shows</h2>
+  <div id="popular-tvshows" class="container"></div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <img id="modalPoster" src="" alt="Poster" />
+      <h2 id="modalTitle"></h2>
+      <p id="modalGenre"></p>
+      <p id="modalSeasons"></p>
+      <p id="modalYear"></p>
+      <p id="modalRating"></p>
+      <p id="modalDescription"></p>
+      <button id="favoriteBtn">Add to Favorites</button>
+      <button id="watchedBtn">Mark as Watched</button>
+    </div>
+  </div>
+
+  <script src="/js/tvshows.js"></script>
+</body>
+</html>

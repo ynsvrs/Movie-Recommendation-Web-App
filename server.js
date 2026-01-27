@@ -1,72 +1,65 @@
-require('dotenv').config();  
+require("dotenv").config();
 const express = require("express");
-const fs = require("fs");
 const path = require("path");
 const connectDB = require("./db");
-
-const moviesRoutes = require("./routes/movies");
-const usersRoutes = require("./routes/users");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
-app.use(express.urlencoded({ extended: true }));
+/* ---------- MIDDLEWARE ---------- */
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.use((req, res, next) => {
-  console.log(`${req.method} ${req.url}`);
-  next();
-});
-
+// Serve frontend static files (CSS, JS, images)
 app.use(express.static(path.join(__dirname, "public")));
 
-// Pagesss
-app.get("/", (req, res) => res.sendFile(path.join(__dirname, "views/index.html")));
-app.get("/about", (req, res) => res.sendFile(path.join(__dirname, "views/about.html")));
-app.get("/contact", (req, res) => res.sendFile(path.join(__dirname, "views/contact.html")));
+/* ---------- DATABASE ---------- */
+connectDB(); // Connect to MongoDB
 
-app.post("/contact", (req, res) => {
-  const filePath = path.join(__dirname, "submissions.json");
-  let submissions = [];
-  if (fs.existsSync(filePath)) {
-    const data = fs.readFileSync(filePath, "utf8");
-    if (data) submissions = JSON.parse(data);
-  }
-  submissions.push(req.body);
-  fs.writeFileSync(filePath, JSON.stringify(submissions, null, 2));
-  res.send(`
-    <h2>Thanks, ${req.body.name}!</h2>
-    <p>Your message has been received.</p>
-    <a href="/contact">Go back</a>
-  `);
+/* ---------- API ROUTES ---------- */
+app.use("/api/movies", require("./routes/movies"));
+app.use("/api/tvshows", require("./routes/tvshows"));
+app.use("/api/channels", require("./routes/channels"));
+app.use("/api/favorites", require("./routes/favorites")); // NEW: Favorites CRUD
+
+/* ---------- FRONTEND PAGES ---------- */
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// Placeholderzz
-app.get("/search", (req, res) => {
-  const query = req.query.q;
-  if (!query) return res.status(400).send("<h2>400 - Missing search query</h2>");
-  res.send(`<h2>Search results for: ${query}</h2>`);
+app.get("/tvshows", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "tvshows.html"));
 });
 
-app.get("/item/:id", (req, res) => {
-  const id = req.params.id;
-  if (!id) return res.status(400).send("<h2>400 - Missing item ID</h2>");
-  res.send(`<h2>Item page for ID: ${id}</h2>`);
+app.get("/channels", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "channels.html"));
 });
 
-// Routes
-app.use("/api/movies", moviesRoutes);
-app.use("/api/users", usersRoutes);
+app.get("/favorites", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "favorites.html"));
+});
 
+app.get("/contact", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "contact.html"));
+});
 
-app.use("/api", (req, res) => res.status(404).json({ error: "API route not found" }));
-app.use((req, res) => res.status(404).send('<h2>404 - Page Not Found</h2><a href="/">Go Home</a>'));
+app.get("/about", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "about.html"));
+});
 
+/* ---------- ERROR HANDLING ---------- */
 
-async function startServer() {
-  await connectDB(); 
-  app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
-}
+// API 404
+app.use("/api/", (req, res) => {
+  res.status(404).json({ error: "API route not found" });
+});
 
-startServer();
+// Frontend 404
+app.use((req, res) => {
+  res.status(404).send("<h2>404 - Page Not Found</h2><a href='/'>Go Home</a>");
+});
+
+/* ---------- START SERVER ---------- */
+app.listen(PORT, () => {
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
+});
