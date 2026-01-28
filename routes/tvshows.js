@@ -16,8 +16,7 @@ router.get("/", async (req, res) => {
     // projection
     let cursor = db.collection("tvshows")
       .find(query)
-      .project({ title: 1, poster: 1, _id: 1 }); 
-
+      .project({title: 1, poster: 1, genre: 1, seasons: 1, year: 1, rating: 1, description: 1, favorite: 1, watched: 1 }); 
     if (sortBy) cursor = cursor.sort({ [sortBy]: order === "desc" ? -1 : 1 });
 
     const shows = await cursor.toArray();

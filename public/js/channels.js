@@ -1,4 +1,6 @@
 const searchInput = document.getElementById("search");
+const latestContainer = document.getElementById("latest-channels");
+const popularContainer = document.getElementById("popular-channels");
 const modal = document.getElementById("modal");
 const closeModal = document.getElementById("closeModal");
 const modalLogo = document.getElementById("modalLogo");
@@ -11,10 +13,15 @@ const watchedBtn = document.getElementById("watchedBtn");
 
 let currentChannel = null;
 
-// Display channels in a given container
-function displayChannels(channels, containerId) {
-  const container = document.getElementById(containerId);
+// Display channels in a container
+function displayChannels(channels, container) {
   container.innerHTML = "";
+
+  if (!channels.length) {
+    container.innerHTML = "<p>No Channels found.</p>";
+    return;
+  }
+
   channels.forEach(ch => {
     const card = document.createElement("div");
     card.className = "card";
@@ -28,29 +35,55 @@ function displayChannels(channels, containerId) {
   });
 }
 
-// Load default sections: Latest and Popular
+// Load default channels: latest & popular
 async function loadDefaultChannels() {
-  const latest = await fetch("/api/channels?sortBy=name&order=asc").then(r => r.json());
-  const popular = await fetch("/api/channels?sortBy=name&order=asc").then(r => r.json());
-  displayChannels(latest.slice(0, 5), "latest-channels");
-  displayChannels(popular.slice(0, 5), "popular-channels");
+  try {
+    const latest = await fetch("/api/channels?sortBy=name&order=asc").then(r => r.json());
+    const popular = await fetch("/api/channels?sortBy=name&order=asc").then(r => r.json());
+
+    displayChannels(latest.slice(0, 5), latestContainer);
+    displayChannels(popular.slice(0, 5), popularContainer);
+  } catch (err) {
+    console.error("Failed to load channels:", err);
+  }
 }
 
-// Search channels by name
+// Search channels
 async function searchChannels(query) {
-  const url = query ? `/api/channels?name=${query}` : "/api/channels";
-  const channels = await fetch(url).then(r => r.json());
-  displayChannels(channels, "latest-channels"); // show search results in main section
+  try {
+    const url = query ? `/api/channels?name=${encodeURIComponent(query)}` : "/api/channels";
+    const channels = await fetch(url).then(r => r.json());
+
+    displayChannels(channels, latestContainer);
+
+    const headers = document.querySelectorAll('h2');
+    if (query) {
+      if (popularContainer) popularContainer.style.display = "none";
+      headers.forEach(h => {
+        if (h.textContent.includes("Popular")) h.style.display = "none";
+        if (h.textContent.includes("Latest")) h.textContent = "Search Results";
+      });
+    } else {
+      if (popularContainer) popularContainer.style.display = "grid";
+      headers.forEach(h => {
+        if (h.textContent.includes("Popular")) h.style.display = "block";
+        if (h.textContent.includes("Results")) h.textContent = "Latest Channels";
+      });
+      loadDefaultChannels();
+    }
+  } catch (err) {
+    console.error("Search failed:", err);
+  }
 }
 
-// Open modal with channel details
+// Open modal
 function openModal(ch) {
   currentChannel = ch;
-  modalLogo.src = ch.logo;
+  modalLogo.src = ch.logo || "/images/default_channel.jpg";
   modalName.textContent = ch.name;
-  modalCountry.textContent = "Country: " + ch.country;
-  modalCategory.textContent = "Category: " + ch.category;
-  modalDescription.textContent = ch.description;
+  modalCountry.textContent = "Country: " + (ch.country || "N/A");
+  modalCategory.textContent = "Category: " + (ch.category || "N/A");
+  modalDescription.textContent = ch.description || "";
   favoriteBtn.textContent = ch.favorite ? "Remove from Favorites" : "Add to Favorites";
   watchedBtn.textContent = ch.watched ? "Watched ✅" : "Mark as Watched";
   modal.classList.remove("hidden");
@@ -61,6 +94,7 @@ closeModal.onclick = () => modal.classList.add("hidden");
 
 // Toggle favorite
 favoriteBtn.onclick = async () => {
+  if (!currentChannel) return;
   await fetch(`/api/channels/${currentChannel._id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -72,6 +106,7 @@ favoriteBtn.onclick = async () => {
 
 // Toggle watched
 watchedBtn.onclick = async () => {
+  if (!currentChannel) return;
   await fetch(`/api/channels/${currentChannel._id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -81,7 +116,7 @@ watchedBtn.onclick = async () => {
   modal.classList.add("hidden");
 };
 
-// Search input listener
+// Search input event
 searchInput.addEventListener("input", () => searchChannels(searchInput.value));
 
 // Initial load
