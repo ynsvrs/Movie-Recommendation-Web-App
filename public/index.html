@@ -3,119 +3,98 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Movie Recommendation System</title>
-  
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
-  
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/style.css">
+  <title>MovieRec - Home</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  
-  <!-- Navigation -->
+
   <nav class="navigation">
     <div class="nav-container">
       <div class="nav-logo">🎬 MovieRec</div>
       <ul class="nav-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/contact">Contact</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href ="/tvshows"> TV shows</a></li>
-        <li><a href ="/channels"> Channels</a></li>
+        <li><a href="/" class="active">Home</a></li>
+        <li><a href="/movies.html">Movies</a></li>
+        <li><a href="/tvshows.html">TV Shows</a></li>
+        <li><a href="/channels.html">Channels</a></li>
+        <li><a href="/tickets.html">Tickets</a></li>
+        <li><a href="/favorites.html">Favorites</a></li>
       </ul>
     </div>
   </nav>
 
-  <!-- Header -->
-  <header class="header">
-    <h1>🎬 Movie Recommendation System</h1>
-    <p class="subtitle">Discover movies based on your personal preferences</p>
-  </header>
-
-  <div class="container">
-    
-    <!-- Project Overview -->
-    <section class="card">
-      <h2>Project Overview</h2>
-      <p>
-        This web application demonstrates a simple Movie Recommendation System
-        built with Node.js and Express.js. Users can navigate through pages and
-        submit their preferences using a contact form.
-      </p>
-      
-      <h3>Features</h3>
-      <ul class="features">
-        <li>Genre-based recommendations</li>
-        <li>Mood-based suggestions</li>
-        <li>Search by release year</li>
-        <li>Simple and clean UI</li>
-      </ul>
-    </section>
-
-    <!-- API Test Links -->
-    <section class="card">
-      <h2>API Test Links</h2>
-      <div class="links">
-        <a href="/api/movies" target="_blank">GET /api/movies</a>
-        <a href="/api/movies?genre=Drama" target="_blank">Filter by genre</a>
-        <a href="/api/movies?sortBy=rating&order=desc" target="_blank">Sort by rating</a>
-        <a href="/api/movies?fields=title,rating" target="_blank">Projection</a>
-      </div>
-    </section>
-
-    <!-- Add Movie -->
-    <section class="card">
-      <h2>Add Movie</h2>
-      <div class="form">
-        <input id="title" type="text" placeholder="Title" />
-        <input id="genre" type="text" placeholder="Genre" />
-        <input id="year" type="number" placeholder="Year" />
-        <input id="rating" type="number" step="0.1" placeholder="Rating" />
-        <button onclick="addMovie()">Create</button>
-      </div>
-      <p id="status" class="status"></p>
-    </section>
-
-    <!-- Movies List -->
-    <section class="card">
-      <h2>Movies</h2>
-      
-      <div class="filters">
-        <input id="filterGenre" type="text" placeholder="Filter by genre" />
-        <select id="sortBy">
-          <option value="">No sort</option>
-          <option value="rating">Rating</option>
-          <option value="year">Year</option>
-          <option value="title">Title</option>
-        </select>
-        <input id="projection" type="text" placeholder="Projection (title,year)" />
-        <button class="secondary" onclick="loadMovies()">Load</button>
-      </div>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Genre</th>
-            <th>Year</th>
-            <th>Rating</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td colspan="5">Loading...</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
+<header class="header">
+  <h1>Welcome to MovieRec</h1>
+  <div class="search-wrapper" style="position: relative; max-width: 500px; margin: 0 auto;">
+    <input type="text" id="main-search" placeholder="Type a title (e.g., Inception)...">
+    <p style="color: #666; font-size: 0.85rem; margin-top: 10px;">
+      Searching in <strong>Movies</strong> and <strong>TV Shows</strong> by name.
+    </p>
   </div>
+</header>
 
-  <!-- JavaScript -->
-  <script src="/scripts.js"></script>
+  <div class="stats-container" style="display: flex; justify-content: center; gap: 50px; margin-bottom: 40px; background: #111; padding: 20px; border-radius: 15px; border: 1px solid #00d4ff33;">
+  <div class="stat-item">
+    <h2 id="count-movies" style="color: #00d4ff; font-size: 2.5rem;">0</h2>
+    <p style="color: #aaa; text-transform: uppercase; letter-spacing: 1px;">Movies</p>
+  </div>
+  <div class="stat-item">
+    <h2 id="count-shows" style="color: #00d4ff; font-size: 2.5rem;">0</h2>
+    <p style="color: #aaa; text-transform: uppercase; letter-spacing: 1px;">TV Shows</p>
+  </div>
+</div>
+
+  <main class="container">
+    <div class="card" onclick="window.location.href='/movies.html'">
+      <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=400" alt="Movies">
+      <h3>Manage Movies</h3>
+      <p>Add, edit, or delete movies in the collection.</p>
+      <button>Explore Movies</button>
+    </div>
+
+
+    <div class="card" onclick="window.location.href='/tvshows.html'">
+      <img src="https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?q=80&w=400" alt="TV">
+      <h3>TV Series</h3>
+      <p>Browse the latest and most popular TV shows.</p>
+      <button>Watch Series</button>
+    </div>
+
+    <div class="card" onclick="window.location.href='/tickets.html'">
+      <img src="images/tickets.jpg" alt="Tickets">
+      <h3>Book Tickets</h3>
+      <p>Get your tickets for the upcoming premieres.</p>
+      <button>Get Tickets</button>
+    </div>
+  </main>
+
+  <footer style="text-align: center; padding: 20px; color: #666;">
+    <p>&copy; 2024 MovieRec Project - Group SE-2423</p>
+  </footer>
+<script>
+  const searchInput = document.getElementById('main-search');
+
+  searchInput.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      const query = e.target.value.trim();
+      if (query) {
+        window.location.href = `/movies.html?search=${encodeURIComponent(query)}`;
+      }
+    }
+  });
+  async function updateStats() {
+    try {
+      const response = await fetch('/api/stats');
+      const data = await response.json();
+
+      document.getElementById('count-movies').textContent = data.moviesCount || 0;
+      document.getElementById('count-shows').textContent = data.showsCount || 0;
+    } catch (error) {
+      console.error("Error fetching stats:", error);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', updateStats);
+</script>
 </body>
 </html>
