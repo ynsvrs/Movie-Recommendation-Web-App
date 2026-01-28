@@ -10,7 +10,7 @@ async function connectDB() {
   try {
     const client = new MongoClient(url);
     await client.connect();          
-    db = client.db(); 
+    db = client.db("MovieRec"); 
     console.log("Connected to MongoDB");
     return db;
   } catch (err) {
