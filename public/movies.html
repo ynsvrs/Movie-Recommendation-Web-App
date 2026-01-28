@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Movies</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navigation">
+    <div class="nav-container">
+      <div class="nav-logo">🎬 MovieRec</div>
+
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/movies.html">Movies</a></li>
+        <li><a href="/tvshows.html">TV Shows</a></li>
+        <li><a href="/channels.html">Channels</a></li>
+        <li><a href="/favorites.html">Favorites</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <!-- HEADER -->
+  <header class="header">
+    <h1>🎬 Movies</h1>
+    <input id="search" type="text" placeholder="Search movies..." />
+  </header>
+
+
+  <!-- LATEST MOVIES -->
+  <h2>Latest Movies</h2>
+  <div id="latest-movies" class="container"></div>
+
+
+  <!-- POPULAR MOVIES -->
+  <h2>Popular Movies</h2>
+  <div id="popular-movies" class="container"></div>
+
+
+
+  <!-- MODAL -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+
+      <span id="closeModal" class="close">&times;</span>
+
+      <img id="modalPoster" src="" />
+
+      <h2 id="modalTitle"></h2>
+
+      <p id="modalGenre"></p>
+      <p id="modalYear"></p>
+      <p id="modalRating"></p>
+      <p id="modalDescription"></p>
+
+      <button id="favoriteBtn">Add to Favorites</button>
+      <button id="watchedBtn">Mark as Watched</button>
+
+    </div>
+  </div>
+
+
+  <!-- JS -->
+  <script src="/js/movies.js"></script>
+
+</body>
+</html>
