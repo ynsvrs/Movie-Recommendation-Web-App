@@ -5,18 +5,26 @@ const { ObjectId } = require("mongodb");
 
 // GET all TV shows
 router.get("/", async (req, res) => {
-  const db = await connectDB();
-  const { title, genre, sortBy, order } = req.query;
+  try {
+    const db = await connectDB();
+    const { title, genre, sortBy, order } = req.query;
 
-  let query = {};
-  if (title) query.title = { $regex: title, $options: "i" };
-  if (genre) query.genre = genre;
+    let query = {};
+    if (title) query.title = { $regex: title, $options: "i" };
+    if (genre) query.genre = genre;
 
-  let cursor = db.collection("tvshows").find(query);
-  if (sortBy) cursor = cursor.sort({ [sortBy]: order === "desc" ? -1 : 1 });
+    // projection
+    let cursor = db.collection("tvshows")
+      .find(query)
+      .project({ title: 1, poster: 1, _id: 1 }); 
 
-  const shows = await cursor.toArray();
-  res.json(shows);
+    if (sortBy) cursor = cursor.sort({ [sortBy]: order === "desc" ? -1 : 1 });
+
+    const shows = await cursor.toArray();
+    res.json(shows);
+  } catch (err) {
+    res.status(500).json({ error: "Server error" });
+  }
 });
 
 // CREATE TV Show 

@@ -77,6 +77,37 @@ watchedBtn.onclick = async () => {
   modal.classList.add("hidden");
 };
 
+async function searchShows(query) {
+  const url = query ? `/api/tvshows?title=${encodeURIComponent(query)}` : "/api/tvshows";
+  
+  try {
+    const shows = await fetch(url).then(r => r.json());
+    
+    displayShows(shows, "latest-tvshows"); 
+
+    const popularSection = document.getElementById("popular-tvshows");
+    const headers = document.querySelectorAll('h2');
+
+    if (query) {
+      if (popularSection) popularSection.style.display = "none";
+      headers.forEach(h => {
+        if (h.textContent.includes("Popular")) h.style.display = "none";
+        if (h.textContent.includes("Latest")) h.textContent = "Search Results";
+      });
+    } else {
+      if (popularSection) popularSection.style.display = "grid";
+      headers.forEach(h => {
+        if (h.textContent.includes("Popular")) h.style.display = "block";
+        if (h.textContent.includes("Results")) h.textContent = "Latest TV Shows";
+      });
+      loadDefaultShows();
+    }
+  } catch (err) {
+    console.error("Search failed:", err);
+  }
+}
+
+
 searchInput.addEventListener("input", () => searchShows(searchInput.value));
 
 // Initial load

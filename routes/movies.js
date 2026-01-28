@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const movieModel = require("../movieModel"); // Убедись, что путь к файлу CRUD верный
+const movieModel = require("../movieModel"); 
 
 // GET all movies
 router.get("/", async (req, res) => {
