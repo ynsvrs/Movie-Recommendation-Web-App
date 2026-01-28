@@ -266,3 +266,61 @@ body {
     height: 180px;
   }
 }
+#createTvShowForm {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #1e1e2f;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+}
+
+#createTvShowForm h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #ffcc00;
+}
+
+#createTvShowForm label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: bold;
+}
+
+#createTvShowForm input,
+#createTvShowForm textarea,
+#createTvShowForm select {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #2a2a3d;
+  color: #fff;
+  font-size: 1rem;
+}
+
+#createTvShowForm input:focus,
+#createTvShowForm textarea:focus,
+#createTvShowForm select:focus {
+  outline: 2px solid #ffcc00;
+  background-color: #343454;
+}
+
+#createTvShowForm button {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #ffcc00;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#createTvShowForm button:hover {
+  background-color: #e6b800;
+}

@@ -30,6 +30,19 @@
   <h2>Popular TV Shows</h2>
   <div id="popular-tvshows" class="container"></div>
 
+  <h2>Create New TV Show</h2>
+<form id="createTvShowForm">
+  <input type="text" id="newTitle" placeholder="Title" required />
+  <input type="text" id="newGenre" placeholder="Genre" required />
+  <input type="number" id="newSeasons" placeholder="Seasons" />
+  <input type="number" id="newYear" placeholder="Year" />
+  <input type="number" step="0.1" id="newRating" placeholder="Rating" />
+  <input type="text" id="newPoster" placeholder="Poster URL" />
+  <textarea id="newDescription" placeholder="Description"></textarea>
+  <button type="submit">Create TV Show</button>
+</form>
+
+
   <!-- Modal -->
   <div id="modal" class="modal hidden">
     <div class="modal-content">
@@ -43,9 +56,11 @@
       <p id="modalDescription"></p>
       <button id="favoriteBtn">Add to Favorites</button>
       <button id="watchedBtn">Mark as Watched</button>
+      <button id="updateBtn">Update TV Show</button>
+      <button id="deleteBtn">Delete TV Show</button>
+
     </div>
   </div>
-
   <script src="/js/tvshows.js"></script>
 </body>
 </html>

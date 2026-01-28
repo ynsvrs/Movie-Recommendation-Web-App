@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, "public")));
-app.use("/images", express.static(path.join(__dirname, "images"))); // ✅ ADDED LINE
+app.use("/images", express.static(path.join(__dirname, "public", "images"))); // ✅ ADDED LINE
 
 /* ---------- DATABASE ---------- */
 connectDB(); 
