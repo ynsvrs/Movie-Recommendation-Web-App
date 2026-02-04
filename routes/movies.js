@@ -1,6 +1,27 @@
 const express = require("express");
 const router = express.Router();
-const movieModel = require("../movieModel"); 
+const movieModel = require("../movieModel");
+const requireAuth = require("../middleware/auth");
+
+
+router.post("/", requireAuth, async (req, res) => {
+  try {
+    const { title, genre, rating } = req.body;
+    if (!title || !genre)
+      return res.status(400).json({ error: "Missing required fields: title, genre" });
+
+    const id = await movieModel.addMovie({
+      title,
+      genre,
+      rating: Number(rating) || 0
+    });
+
+    res.status(201).json({ id, title, genre, rating });
+  } catch (err) {
+    res.status(500).json({ error: "Database error" });
+  }
+});
+
 
 // GET all movies
 router.get("/", async (req, res) => {
@@ -66,27 +87,39 @@ router.post("/", async (req, res) => {
 });
 
 // PUT update movie
-router.put("/:id", async (req, res) => {
+router.put("/:id", requireAuth, async (req, res) => {
   try {
     const { title, genre, rating } = req.body;
-    const changes = await movieModel.updateMovie(req.params.id, { title, genre, rating });
-    
-    if (changes === 0) return res.status(404).json({ error: "Movie not found" });
+
+    const changes = await movieModel.updateMovie(req.params.id, {
+      title,
+      genre,
+      rating
+    });
+
+    if (changes === 0)
+      return res.status(404).json({ error: "Movie not found" });
+
     res.status(200).json({ message: "Movie updated" });
   } catch (err) {
     res.status(400).json({ error: "Invalid ID or Database error" });
   }
 });
 
+
 // DELETE movie
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", requireAuth, async (req, res) => {
   try {
     const changes = await movieModel.deleteMovie(req.params.id);
-    if (changes === 0) return res.status(404).json({ error: "Movie not found" });
+
+    if (changes === 0)
+      return res.status(404).json({ error: "Movie not found" });
+
     res.status(200).json({ message: "Movie deleted" });
   } catch (err) {
     res.status(400).json({ error: "Invalid ID format" });
   }
 });
+
 
 module.exports = router;

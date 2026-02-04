@@ -1,0 +1,23 @@
+<form id="loginForm">
+  <input type="email" required />
+  <input type="password" required />
+  <button>Login</button>
+</form>
+
+<script>
+document.getElementById("loginForm").onsubmit = async e => {
+  e.preventDefault();
+
+  const email = e.target[0].value;
+  const password = e.target[1].value;
+
+  const res = await fetch("/auth/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password })
+  });
+
+  if (res.ok) location.href = "/";
+  else alert("Invalid credentials");
+};
+</script>

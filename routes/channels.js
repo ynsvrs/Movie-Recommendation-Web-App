@@ -2,8 +2,11 @@ const express = require("express");
 const router = express.Router();
 const connectDB = require("../db");
 const { ObjectId } = require("mongodb");
+const requireAuth = require("../middleware/auth");
 
-// GET all channels
+// =======================
+// GET all channels (PUBLIC)
+// =======================
 router.get("/", async (req, res) => {
   try {
     const db = await connectDB();
@@ -16,32 +19,48 @@ router.get("/", async (req, res) => {
 
     let cursor = db.collection("channels").find(query);
 
-    if (sortBy) cursor = cursor.sort({ [sortBy]: order === "desc" ? -1 : 1 });
+    if (sortBy) {
+      cursor = cursor.sort({ [sortBy]: order === "desc" ? -1 : 1 });
+    }
 
     const channels = await cursor.toArray();
     res.json(channels);
   } catch (err) {
-    console.error(err);
     res.status(500).json({ error: "Server error" });
   }
 });
 
-// GET channel by ID
+
+// =======================
+// GET channel by ID (PUBLIC)
+// =======================
 router.get("/:id", async (req, res) => {
   try {
     const db = await connectDB();
-    const channel = await db.collection("channels").findOne({ _id: new ObjectId(req.params.id) });
-    if (!channel) return res.status(404).json({ error: "Channel not found" });
+    const channel = await db.collection("channels").findOne({
+      _id: new ObjectId(req.params.id)
+    });
+
+    if (!channel) {
+      return res.status(404).json({ error: "Channel not found" });
+    }
+
     res.json(channel);
   } catch (err) {
     res.status(400).json({ error: "Invalid ID format" });
   }
 });
 
-// CREATE channel
-router.post("/", async (req, res) => {
+
+// =======================
+// CREATE channel (PROTECTED)
+// =======================
+router.post("/", requireAuth, async (req, res) => {
   const { name, country, category, logo, description } = req.body;
-  if (!name || !category) return res.status(400).json({ error: "Name & category required" });
+
+  if (!name || !category) {
+    return res.status(400).json({ error: "Name & category required" });
+  }
 
   try {
     const db = await connectDB();
@@ -54,35 +73,52 @@ router.post("/", async (req, res) => {
       favorite: false,
       watched: false
     });
+
     res.status(201).json({ id: result.insertedId });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ error: "Server error" });
   }
 });
 
-// UPDATE channel
-router.put("/:id", async (req, res) => {
+
+// =======================
+// UPDATE channel (PROTECTED)
+// =======================
+router.put("/:id", requireAuth, async (req, res) => {
   const { favorite, watched } = req.body;
+
   try {
     const db = await connectDB();
     const result = await db.collection("channels").updateOne(
       { _id: new ObjectId(req.params.id) },
       { $set: { favorite, watched } }
     );
-    if (result.matchedCount === 0) return res.status(404).json({ error: "Channel not found" });
+
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ error: "Channel not found" });
+    }
+
     res.json({ message: "Updated successfully" });
   } catch (err) {
     res.status(400).json({ error: "Invalid ID or Server error" });
   }
 });
 
-// DELETE channel
-router.delete("/:id", async (req, res) => {
+
+// =======================
+// DELETE channel (PROTECTED)
+// =======================
+router.delete("/:id", requireAuth, async (req, res) => {
   try {
     const db = await connectDB();
-    const result = await db.collection("channels").deleteOne({ _id: new ObjectId(req.params.id) });
-    if (result.deletedCount === 0) return res.status(404).json({ error: "Channel not found" });
+    const result = await db.collection("channels").deleteOne({
+      _id: new ObjectId(req.params.id)
+    });
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ error: "Channel not found" });
+    }
+
     res.json({ message: "Deleted successfully" });
   } catch (err) {
     res.status(400).json({ error: "Invalid ID format" });
