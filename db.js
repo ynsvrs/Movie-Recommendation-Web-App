@@ -8,6 +8,7 @@ async function connectDB() {
   if (db) return db;
 
   try {
+    console.log("MONGO_URI =", process.env.MONGO_URI);
     const client = new MongoClient(url);
     await client.connect();          
     db = client.db("MovieRec"); 

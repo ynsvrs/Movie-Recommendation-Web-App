@@ -3,28 +3,8 @@ const router = express.Router();
 const movieModel = require("../movieModel");
 const requireAuth = require("../middleware/auth");
 
-
-router.post("/", requireAuth, async (req, res) => {
-  try {
-    const { title, genre, rating } = req.body;
-    if (!title || !genre)
-      return res.status(400).json({ error: "Missing required fields: title, genre" });
-
-    const id = await movieModel.addMovie({
-      title,
-      genre,
-      rating: Number(rating) || 0
-    });
-
-    res.status(201).json({ id, title, genre, rating });
-  } catch (err) {
-    res.status(500).json({ error: "Database error" });
-  }
-});
-
-
-// GET all movies
-router.get("/", async (req, res) => {
+// GET all movies (PROTECTED)
+router.get("/", requireAuth, async (req, res) => {
   try {
     const movies = await movieModel.getAllMovies();
     let result = [...movies];
@@ -40,7 +20,9 @@ router.get("/", async (req, res) => {
     // Sorting
     if (sortBy) {
       const sortOrder = order === "desc" ? -1 : 1;
-      result.sort((a, b) => (a[sortBy] < b[sortBy] ? -1 * sortOrder : a[sortBy] > b[sortBy] ? 1 * sortOrder : 0));
+      result.sort((a, b) =>
+        (a[sortBy] < b[sortBy] ? -1 * sortOrder : a[sortBy] > b[sortBy] ? 1 * sortOrder : 0)
+      );
     }
 
     // Projection
@@ -61,6 +43,8 @@ router.get("/", async (req, res) => {
     res.status(500).json({ error: "Database error" });
   }
 });
+
+
 
 // GET movie by ID
 router.get("/:id", async (req, res) => {

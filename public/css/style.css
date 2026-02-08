@@ -324,3 +324,62 @@ body {
 #createTvShowForm button:hover {
   background-color: #e6b800;
 }
+/* ---------- Auth Page ---------- */
+.auth-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.auth-card{
+  background-color: #1b1b1b;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+  border: 1px solid rgba(0,212,255,0.15);
+}
+
+.auth-card h2{
+  color: #00d4ff;
+  margin-bottom: 15px;
+}
+
+.auth-form{
+  display:flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth-form input{
+  padding: 12px 16px;
+  border-radius: 50px;
+  border: none;
+  outline: none;
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0,212,255,0.15);
+}
+
+.auth-form input:focus{
+  box-shadow: 0 0 12px #00d4ff;
+}
+
+.auth-form button{
+  padding: 12px 16px;
+  border-radius: 50px;
+  border: none;
+  background-color: #00d4ff;
+  color: #0a0a0a;
+  font-weight: 700;
+  cursor:pointer;
+  transition: 0.3s;
+}
+
+.auth-form button:hover{
+  background-color: #00a6cc;
+  transform: scale(1.02);
+}
+
+@media (max-width: 900px){
+  .auth-grid{ grid-template-columns: 1fr; }
+}

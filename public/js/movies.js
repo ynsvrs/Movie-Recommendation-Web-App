@@ -41,7 +41,15 @@ function displayMovies(movies, containerId) {
 
 // ---------- load latest + popular ----------
 async function loadDefaultMovies() {
-  const all = await fetch("/api/movies").then(r => r.json());
+  const res = await fetch("/api/movies");
+
+  if (res.status === 401) {
+    alert("Please login first");
+    window.location.href = "/login.html";
+    return;
+  }
+
+  const all = await res.json();
 
   const latest = [...all].sort((a, b) => b.year - a.year);
   const popular = [...all].sort((a, b) => b.rating - a.rating);
@@ -57,10 +65,17 @@ async function searchMovies(query) {
   let url = "/api/movies";
 
   if (query)
-    url += '?fields=title,genre,rating,year,poster';
+    url += "?fields=title,genre,rating,year,poster";
 
-  const movies = await fetch(url).then(r => r.json());
+  const res = await fetch(url);
 
+  if (res.status === 401) {
+    alert("Please login first");
+    window.location.href = "/login.html";
+    return;
+  }
+
+  const movies = await res.json();
   let result = movies;
 
   if (query)
@@ -79,6 +94,7 @@ async function searchMovies(query) {
     loadDefaultMovies();
   }
 }
+
 
 
 

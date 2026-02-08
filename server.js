@@ -3,6 +3,8 @@ const express = require("express");
 const path = require("path");
 const session = require("express-session");
 const connectDB = require("./db");
+const MongoStore = require("connect-mongo").default;
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,18 +23,24 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(
-  session({
+session({
     name: "movierec.sid",
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGO_URI
+    }),
+
     cookie: {
-      httpOnly: true,
-      secure: false, // keep false for localhost
-      maxAge: 1000 * 60 * 60, // 1 hour
-    },
-  })
+        httpOnly: true,
+        secure: false, // true after deploy HTTPS
+        maxAge: 1000 * 60 * 60
+    }
+})
 );
+
 
 /* ---------- STATIC FILES ---------- */
 app.use(express.static(path.join(__dirname, "public")));
@@ -43,6 +51,8 @@ app.use("/api/movies", require("./routes/movies"));
 app.use("/api/tvshows", require("./routes/tvshows"));
 app.use("/api/channels", require("./routes/channels"));
 app.use("/api/favorites", require("./routes/favorites"));
+app.use("/api/auth", require("./routes/auth"));
+
 
 /* ---------- PAGES ---------- */
 app.get("/", (req, res) =>
