@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile - MovieRec</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navigation">
+    <div class="nav-container">
+      <div class="nav-logo">🎬 MovieRec</div>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/movies.html">Movies</a></li>
+        <li><a href="/tvshows.html">TV Shows</a></li>
+        <li><a href="/channels.html">Channels</a></li>
+        <li id="profile-link" style="display:none;"><a href="/profile.html">Profile</a></li>
+        <li id="admin-link" style="display:none;"><a href="/admin.html">Admin Panel</a></li>
+        <li id="login-link"><a href="/login.html">Login</a></li>
+        <li id="register-link"><a href="/register.html">Register</a></li>
+        <li id="logout-link" style="display:none;">
+          <a href="#" onclick="logout()">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="header">
+    <h1>My Profile</h1>
+  </header>
+
+  <main class="container" style="max-width: 1000px;">
+    <!-- User Info -->
+    <section class="auth-card" style="margin-bottom: 40px; padding: 20px;">
+      <h2>Account Details</h2>
+      <p><strong>Username:</strong> <span id="username">Loading...</span></p>
+      <p><strong>Email:</strong> <span id="email">Loading...</span></p>
+      <p><strong>Joined:</strong> <span id="memberSince">Loading...</span></p>
+      <p><strong>Role:</strong> <span id="roleBadge" class="badge">Loading...</span></p>
+      <button class="logout-btn" onclick="logout()" style="margin-top: 15px;">Logout</button>
+    </section>
+
+    <!-- Favorites -->
+    <section>
+      <h2>My Favorites</h2>
+
+      <h3>Movies</h3>
+      <div id="moviesGrid" class="favorites-grid"></div>
+
+      <h3>TV Shows</h3>
+      <div id="tvshowsGrid" class="favorites-grid"></div>
+
+      <h3>Channels</h3>
+      <div id="channelsGrid" class="favorites-grid"></div>
+    </section>
+
+    <!-- Watched -->
+    <section style="margin-top: 40px;">
+      <h2>My Watched</h2>
+
+      <h3>Movies</h3>
+      <div id="moviesWatchedGrid" class="favorites-grid"></div>
+
+      <h3>TV Shows</h3>
+      <div id="tvshowsWatchedGrid" class="favorites-grid"></div>
+
+      <h3>Channels</h3>
+      <div id="channelsWatchedGrid" class="favorites-grid"></div>
+    </section>
+  </main>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/profile.js"></script>
+</body>
+</html>

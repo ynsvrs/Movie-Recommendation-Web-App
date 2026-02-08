@@ -3,14 +3,12 @@ const router = express.Router();
 const connectDB = require("../db");
 const { ObjectId } = require("mongodb");
 
-// =======================
 // GET all favorites
-// =======================
 router.get("/", async (req, res) => {
   try {
     const db = await connectDB();
     
-    // Fetch favorites from all three collections
+    // Fetches favorites from all three collections
     const movieFavs = await db.collection("movies").find({ favorite: true }).toArray();
     const tvFavs = await db.collection("tvshows").find({ favorite: true }).toArray();
     const chFavs = await db.collection("channels").find({ favorite: true }).toArray();
@@ -27,15 +25,13 @@ router.get("/", async (req, res) => {
   }
 });
 
-// =======================
-// DELETE favorite (unmark)
-// =======================
+// DELETE favorite 
 router.delete("/:type/:id", async (req, res) => {
   try {
     const db = await connectDB();
     const { type, id } = req.params;
 
-    // Determine collection based on type
+    // Determines collection based on type
     let collection;
     if (type === "movie") {
       collection = "movies";

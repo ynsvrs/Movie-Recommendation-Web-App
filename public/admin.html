@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - MovieRec</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navigation">
+    <div class="nav-container">
+      <div class="nav-logo">🎬 MovieRec</div>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/movies.html">Movies</a></li>
+        <li><a href="/tvshows.html">TV Shows</a></li>
+        <li><a href="/channels.html">Channels</a></li>
+        <li id="profile-link" style="display:none;"><a href="/profile.html">Profile</a></li>
+        <li id="admin-link" style="display:none;"><a href="/admin.html">Admin Panel</a></li>
+        <li id="login-link"><a href="/login.html">Login</a></li>
+        <li id="register-link"><a href="/register.html">Register</a></li>
+        <li id="logout-link" style="display:none;">
+          <a href="#" onclick="logout()">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+<main class="admin-dashboard">
+  <div class="dashboard-header">
+    <h1>Admin Dashboard</h1>
+    <p>Platform statistics overview</p>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">👥</div>
+      <h2 id="usersCount">0</h2>
+      <p>Total Users</p>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">🎬</div>
+      <h2 id="moviesCount">0</h2>
+      <p>Movies</p>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">📺</div>
+      <h2 id="showsCount">0</h2>
+      <p>TV Shows</p>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">📡</div>
+      <h2 id="channelsCount">0</h2>
+      <p>Channels</p>
+    </div>
+  </div>
+</main>
+
+  <script src="/js/common.js"></script>
+  <script>
+    async function loadStats() {
+      try {
+        const res = await fetch('/api/admin/stats', {
+          credentials: 'include'
+        });
+
+        console.log("Admin stats status:", res.status);
+
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.error || "Access denied");
+        }
+
+        const data = await res.json();
+
+        document.getElementById("usersCount").textContent = data.users || 0;
+        document.getElementById("moviesCount").textContent = data.movies || 0;
+        document.getElementById("showsCount").textContent = data.tvshows || 0;
+        document.getElementById("channelsCount").textContent = data.channels || 0;
+      } catch (err) {
+        console.error("Admin stats error:", err);
+        alert(err.message || "You are not admin or not logged in");
+        window.location.href = "/";
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", loadStats);
+  </script>
+</body>
+</html>
