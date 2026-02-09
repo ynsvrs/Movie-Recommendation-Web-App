@@ -718,3 +718,222 @@ body {
     font-size: 4.5rem;
   }
 }
+/* ==============================
+   REVIEWS PAGE - MovieRec Style
+============================== */
+.reviews-page {
+  max-width: 1100px;
+  margin: 30px auto 70px;
+  padding: 0 20px;
+}
+
+.reviews-title {
+  font-size: 3rem;
+  color: #00d4ff;
+  margin-bottom: 18px;
+  text-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+}
+
+.reviews-section {
+  background: linear-gradient(135deg, #1b1b1b 0%, #1f1f2b 100%);
+  border: 1px solid rgba(0, 212, 255, 0.18);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 18px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55);
+}
+
+.reviews-section h3 {
+  color: #00d4ff;
+  margin-bottom: 12px;
+  font-size: 1.35rem;
+}
+
+/* top form */
+#reviewForm {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 0.7fr 1.4fr auto;
+  gap: 10px;
+  align-items: stretch;
+}
+
+#reviewForm select,
+#reviewForm input,
+#reviewForm textarea,
+#reviewFilters select,
+#reviewFilters input {
+  width: 100%;
+  background-color: #151515;
+  color: #e5e5e5;
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+  padding: 11px 12px;
+  font-size: 0.96rem;
+  outline: none;
+  transition: 0.2s ease;
+}
+
+#reviewForm textarea {
+  resize: vertical;
+  min-height: 44px;
+  max-height: 120px;
+}
+
+#reviewForm select:focus,
+#reviewForm input:focus,
+#reviewForm textarea:focus,
+#reviewFilters select:focus,
+#reviewFilters input:focus {
+  border-color: #00d4ff;
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.18);
+}
+
+/* buttons */
+.review-btn {
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #00d4ff, #00a6cc);
+  color: #091015;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0 16px;
+  transition: 0.25s ease;
+}
+
+.review-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(0, 212, 255, 0.35);
+}
+
+.review-btn.secondary {
+  background: #262626;
+  color: #f1f1f1;
+  border: 1px solid #353535;
+}
+
+.review-btn.secondary:hover {
+  background: #2e2e2e;
+  box-shadow: none;
+}
+
+.reviews-tip {
+  margin-top: 10px;
+  color: #9d9d9d;
+  font-size: 0.92rem;
+}
+
+/* filters row */
+#reviewFilters {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 0.8fr 0.9fr 0.8fr auto;
+  gap: 10px;
+}
+
+/* review cards list */
+#reviewsList {
+  display: grid;
+  gap: 12px;
+}
+
+.review-card {
+  background-color: #161616;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-left: 4px solid #00d4ff;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 5px 18px rgba(0,0,0,0.45);
+}
+
+.review-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.review-title {
+  color: #00d4ff;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.review-meta {
+  color: #bdbdbd;
+  font-size: 0.9rem;
+}
+
+.review-text {
+  color: #e3e3e3;
+  margin: 6px 0 8px;
+  white-space: pre-wrap;
+}
+
+.review-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.review-actions .review-btn {
+  padding: 8px 12px;
+  font-size: 0.9rem;
+}
+
+.review-empty {
+  background-color: #171717;
+  border: 1px dashed #333;
+  border-radius: 10px;
+  padding: 16px;
+  color: #9c9c9c;
+}
+
+/* pagination */
+.review-pagination {
+  margin-top: 14px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+#pageInfo {
+  color: #d4d4d4;
+  min-width: 105px;
+  text-align: center;
+}
+
+/* responsive */
+@media (max-width: 980px) {
+  #reviewForm {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  #reviewForm textarea {
+    grid-column: 1 / -1;
+  }
+
+  #reviewForm .review-btn {
+    grid-column: 1 / -1;
+    height: 42px;
+  }
+
+  #reviewFilters {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  #reviewFilters .review-btn {
+    grid-column: 1 / -1;
+    height: 42px;
+  }
+}
+
+@media (max-width: 560px) {
+  .reviews-title {
+    font-size: 2.1rem;
+  }
+
+  #reviewForm,
+  #reviewFilters {
+    grid-template-columns: 1fr;
+  }
+}

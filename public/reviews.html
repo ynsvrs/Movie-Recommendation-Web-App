@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MovieRec - Reviews</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navigation">
+    <div class="nav-container">
+      <div class="nav-logo">🎬 MovieRec</div>
+      <ul class="nav-links">
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="/movies.html">Movies</a></li>
+        <li><a href="/tvshows.html">TV Shows</a></li>
+        <li><a href="/channels.html">Channels</a></li>
+        <li><a href="/reviews.html" class="active">Reviews</a></li>
+
+        <li><a id="loginLink" href="/login.html">Login</a></li>
+        <li><a id="registerLink" href="/register.html">Register</a></li>
+        <li><a id="profileLink" href="/profile.html" style="display:none;">Profile</a></li>
+        <li><button id="logoutBtn" class="review-btn secondary" style="display:none;">Logout</button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="reviews-page">
+    <h1 class="reviews-title">📝 Reviews</h1>
+
+    <!-- ADD REVIEW -->
+    <section class="reviews-section">
+      <h3>Add Review</h3>
+      <form id="reviewForm">
+        <select id="targetType" required>
+          <option value="movie">Movie</option>
+          <option value="tvshow">TV Show</option>
+          <option value="channel">Channel</option>
+        </select>
+
+        <input id="targetId" placeholder="Target ObjectId" required />
+        <input id="rating" type="number" min="1" max="10" placeholder="Rating (1-10)" required />
+        <textarea id="text" placeholder="Your review text"></textarea>
+
+        <button class="review-btn" type="submit">Create Review</button>
+      </form>
+      <p class="reviews-tip">Tip: copy targetId from MongoDB (_id of movie/tvshow/channel).</p>
+    </section>
+
+    <!-- FILTERS -->
+    <section class="reviews-section">
+      <h3>Filters</h3>
+      <div id="reviewFilters">
+        <input id="fSearch" placeholder="Search text / username / title" />
+        <select id="fType">
+          <option value="">All Types</option>
+          <option value="movie">Movie</option>
+          <option value="tvshow">TV Show</option>
+          <option value="channel">Channel</option>
+        </select>
+        <input id="fMinRating" type="number" min="1" max="10" placeholder="Min" />
+        <select id="fSortBy">
+          <option value="createdAt">Newest</option>
+          <option value="rating">Rating</option>
+        </select>
+        <select id="fOrder">
+          <option value="desc">Desc</option>
+          <option value="asc">Asc</option>
+        </select>
+        <button id="applyFilters" class="review-btn secondary" type="button">Apply</button>
+      </div>
+    </section>
+
+    <!-- LIST -->
+    <div id="reviewsList"></div>
+
+    <!-- PAGINATION -->
+    <div class="review-pagination">
+      <button id="prevBtn" class="review-btn secondary" type="button">Prev</button>
+      <span id="pageInfo">Page 1 / 1</span>
+      <button id="nextBtn" class="review-btn secondary" type="button">Next</button>
+    </div>
+  </main>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/reviews.js"></script>
+</body>
+</html>

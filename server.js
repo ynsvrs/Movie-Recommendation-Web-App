@@ -42,6 +42,8 @@ app.use("/api/channels", require("./routes/channels"));
 app.use("/api/movies", require("./routes/movies"));
 app.use("/api/profile", require("./routes/profile"));
 app.use("/api/tvshows", require("./routes/tvshows"));
+app.use("/api/reviews", require("./routes/reviews"));
+
 
 // API STATS 
 app.get("/api/stats", async (req, res) => {
@@ -60,20 +62,25 @@ app.get("/", (req, res) => res.sendFile(path.join(__dirname, "public", "index.ht
 app.get("/about.html", (req, res) => res.sendFile(path.join(__dirname, "public", "about.html")));
 app.get("/channels.html", (req, res) => res.sendFile(path.join(__dirname, "public", "channels.html")));
 app.get("/contact.html", (req, res) => res.sendFile(path.join(__dirname, "public", "contact.html")));
+
 app.get("/favorites.html", (req, res) => {
-  if (!req.session.user) {
-    return res.redirect("/login.html");
-  }
+  if (!req.session.user) return res.redirect("/login.html");
   res.sendFile(path.join(__dirname, "public", "favorites.html"));
 });
+
 app.get("/login.html", (req, res) => res.sendFile(path.join(__dirname, "public", "login.html")));
 app.get("/movies.html", (req, res) => res.sendFile(path.join(__dirname, "public", "movies.html")));
+
 app.get("/profile.html", (req, res) => {
-  if (!req.session.user) {
-    return res.redirect("/login.html");
-  }
+  if (!req.session.user) return res.redirect("/login.html");
   res.sendFile(path.join(__dirname, "public", "profile.html"));
 });
+
+app.get("/reviews.html", (req, res) => {
+  if (!req.session.user) return res.redirect("/login.html");
+  res.sendFile(path.join(__dirname, "public", "reviews.html"));
+});
+
 app.get("/register.html", (req, res) => res.sendFile(path.join(__dirname, "public", "register.html")));
 app.get("/tvshows.html", (req, res) => res.sendFile(path.join(__dirname, "public", "tvshows.html")));
 
